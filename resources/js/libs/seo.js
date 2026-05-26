@@ -1,7 +1,7 @@
 import {useHead} from '@unhead/vue';
 
 const SITE_NAME = 'Super Special Jobs';
-const SITE_URL = 'https://super-special-jobs.vercel.app';
+const SITE_URL = 'https://super-special-jobs-collection.vercel.app';
 const DEFAULT_OG = '/og/home.png';
 
 // 設定整頁 SEO / OG meta。傳 reactive 或 plain object 皆可。
