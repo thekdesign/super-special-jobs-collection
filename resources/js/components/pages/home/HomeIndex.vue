@@ -120,7 +120,7 @@ export default {
     setup() {
         useSiteHead({
             title: '🎮 Super Special Jobs — 特別職業圖鑑',
-            description: '收集 30 個現代社會那些沒有專業執照、但你身邊就有人在做的職業：寵物溝通師、植物溝通師、撒嬌教練⋯像素 RPG 風幽默圖鑑。',
+            description: '收集現代社會那些沒有專業執照、但你身邊就有人在做的職業：寵物溝通師、植物溝通師、撒嬌教練、出租朋友⋯像素 RPG 風幽默圖鑑。',
             ogImage: '/og/home.png',
             path: '/',
         });

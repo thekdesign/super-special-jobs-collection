@@ -17,7 +17,7 @@
                             SUPER SPECIAL JOBS
                         </div>
                         <div class="font-body text-ink-200 text-[11px] tracking-widest">
-                            特別職業圖鑑 · 30 名挑戰者
+                            特別職業圖鑑 · {{ jobCount }} 名挑戰者
                         </div>
                     </div>
                 </RouterLink>
@@ -63,11 +63,16 @@
 </template>
 
 <script>
+import {jobs} from 'data/jobs';
+
 export default {
     name: 'AppContainer',
     computed: {
         year() {
             return new Date().getFullYear();
+        },
+        jobCount() {
+            return jobs.length;
         },
     },
 };
