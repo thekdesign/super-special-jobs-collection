@@ -1,0 +1,12 @@
+{
+    "name": "Super Special Jobs",
+    "short_name": "SSJ",
+    "description": "像素 RPG 風格的「特別職業」圖鑑：現代社會那些沒有專業執照的職業，我們收集起來讓你好好認識。",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0e1f1a",
+    "theme_color": "#d45b3b",
+    "icons": [
+        {"src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml"}
+    ]
+}

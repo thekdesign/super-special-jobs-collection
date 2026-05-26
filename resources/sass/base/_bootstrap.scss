@@ -1,0 +1,320 @@
+@use 'reset-css/reset.css';
+@use 'normalize';
+
+@tailwind utilities;
+
+html, body {
+    font-family: 'DotGothic16', 'Noto Sans TC', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: theme('colors.ink.100');
+    -webkit-font-smoothing: none;
+    font-smooth: never;
+    image-rendering: pixelated;
+}
+
+body {
+    background:
+        // 微微的螢火 / 星點：固定位置但很稀
+        radial-gradient(2px 2px at 12% 18%, theme('colors.gold.200') 50%, transparent 51%),
+        radial-gradient(2px 2px at 78% 30%, theme('colors.ink.100') 50%, transparent 51%),
+        radial-gradient(2px 2px at 32% 70%, theme('colors.mint.200') 50%, transparent 51%),
+        radial-gradient(2px 2px at 88% 82%, theme('colors.gold.300') 50%, transparent 51%),
+        radial-gradient(2px 2px at 55% 12%, theme('colors.ink.200') 50%, transparent 51%),
+        // 主背景：深森林夜色
+        linear-gradient(180deg, theme('colors.night.700') 0%, theme('colors.night.800') 60%, theme('colors.night.900') 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+// CRT 掃描線疊加：細微，整站感
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 0,
+            rgba(0, 0, 0, 0) 2px,
+            rgba(0, 0, 0, 0.15) 2px,
+            rgba(0, 0, 0, 0.15) 3px,
+        );
+    opacity: 0.4;
+}
+
+// 一道緩慢掃下的螢光線（CRT 效果）
+body::after {
+    content: '';
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 80px;
+    pointer-events: none;
+    z-index: 99;
+    background: linear-gradient(180deg, transparent 0%, rgba(244, 201, 93, 0.05) 50%, transparent 100%);
+    animation: scanline 6s linear infinite;
+}
+
+::selection {
+    background: theme('colors.gold.300');
+    color: theme('colors.night.800');
+}
+
+// ===== Pixel-RPG utilities =====
+
+// 8-bit 砌牆風面板：層層硬陰影做出像素邊框
+.pixel-frame {
+    position: relative;
+    background: theme('colors.night.600');
+    color: theme('colors.ink.100');
+    box-shadow:
+        inset 0 0 0 4px theme('colors.ink.100'),
+        inset 0 0 0 8px theme('colors.night.600'),
+        4px 4px 0 0 theme('colors.night.900'),
+        8px 8px 0 0 theme('colors.night.900');
+    padding: 20px;
+}
+
+.pixel-frame--panel {
+    background: theme('colors.panel.700');
+    box-shadow:
+        inset 0 0 0 4px theme('colors.ink.100'),
+        inset 0 0 0 8px theme('colors.panel.700'),
+        4px 4px 0 0 theme('colors.night.900'),
+        8px 8px 0 0 theme('colors.night.900');
+}
+
+.pixel-frame--magenta {
+    background: theme('colors.night.700');
+    box-shadow:
+        inset 0 0 0 4px theme('colors.magenta.400'),
+        inset 0 0 0 8px theme('colors.night.700'),
+        4px 4px 0 0 theme('colors.magenta.700');
+}
+
+.pixel-frame--gold {
+    background: theme('colors.night.700');
+    box-shadow:
+        inset 0 0 0 4px theme('colors.gold.300'),
+        inset 0 0 0 8px theme('colors.night.700'),
+        4px 4px 0 0 theme('colors.gold.700');
+}
+
+// 對話框（NES 風）
+.dialog-box {
+    background: theme('colors.ink.100');
+    color: theme('colors.night.800');
+    box-shadow:
+        inset 0 0 0 4px theme('colors.night.800'),
+        inset 0 0 0 8px theme('colors.ink.100'),
+        inset 0 0 0 12px theme('colors.night.800'),
+        6px 6px 0 0 theme('colors.night.900');
+    padding: 24px;
+    position: relative;
+}
+
+// 對話框右下角閃爍小三角（按 A 繼續）
+.dialog-box::after {
+    content: '▼';
+    position: absolute;
+    right: 18px;
+    bottom: 12px;
+    color: theme('colors.night.800');
+    animation: blink 0.9s steps(2) infinite;
+    font-size: 14px;
+}
+
+// Pixel 按鈕
+.pixel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    background: theme('colors.magenta.400');
+    color: theme('colors.ink.50');
+    font-family: 'Press Start 2P', 'DotGothic16', 'Noto Sans TC', system-ui, monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.4;
+    box-shadow:
+        inset -4px -4px 0 0 theme('colors.magenta.700'),
+        inset 4px 4px 0 0 theme('colors.magenta.200'),
+        4px 4px 0 0 theme('colors.night.900');
+    transition: transform 80ms steps(2), box-shadow 80ms steps(2);
+    cursor: pointer;
+    user-select: none;
+}
+
+.pixel-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow:
+        inset -4px -4px 0 0 theme('colors.magenta.700'),
+        inset 4px 4px 0 0 theme('colors.magenta.200'),
+        6px 6px 0 0 theme('colors.night.900');
+}
+
+.pixel-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow:
+        inset -4px -4px 0 0 theme('colors.magenta.700'),
+        inset 4px 4px 0 0 theme('colors.magenta.200'),
+        0 0 0 0 theme('colors.night.900');
+}
+
+.pixel-btn--gold {
+    background: theme('colors.gold.300');
+    color: theme('colors.night.800');
+    box-shadow:
+        inset -4px -4px 0 0 theme('colors.gold.500'),
+        inset 4px 4px 0 0 theme('colors.gold.100'),
+        4px 4px 0 0 theme('colors.night.900');
+}
+.pixel-btn--gold:hover {
+    box-shadow:
+        inset -4px -4px 0 0 theme('colors.gold.500'),
+        inset 4px 4px 0 0 theme('colors.gold.100'),
+        6px 6px 0 0 theme('colors.night.900');
+}
+.pixel-btn--gold:active {
+    box-shadow:
+        inset -4px -4px 0 0 theme('colors.gold.500'),
+        inset 4px 4px 0 0 theme('colors.gold.100'),
+        0 0 0 0 theme('colors.night.900');
+}
+
+.pixel-btn--ghost {
+    background: theme('colors.night.700');
+    color: theme('colors.ink.100');
+    box-shadow:
+        inset -4px -4px 0 0 theme('colors.night.900'),
+        inset 4px 4px 0 0 theme('colors.night.400'),
+        4px 4px 0 0 theme('colors.night.900');
+}
+.pixel-btn--ghost:hover {
+    box-shadow:
+        inset -4px -4px 0 0 theme('colors.night.900'),
+        inset 4px 4px 0 0 theme('colors.night.400'),
+        6px 6px 0 0 theme('colors.night.900');
+}
+
+// Pixel 標籤（categroy chip）
+.pixel-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    font-family: 'Press Start 2P', 'DotGothic16', 'Noto Sans TC', system-ui, monospace;
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    background: theme('colors.night.500');
+    color: theme('colors.ink.100');
+    box-shadow:
+        inset 0 0 0 2px theme('colors.ink.100');
+}
+
+.pixel-badge--magenta {
+    background: theme('colors.magenta.500');
+    color: theme('colors.ink.50');
+    box-shadow: inset 0 0 0 2px theme('colors.magenta.100');
+}
+
+.pixel-badge--gold {
+    background: theme('colors.gold.300');
+    color: theme('colors.night.800');
+    box-shadow: inset 0 0 0 2px theme('colors.gold.700');
+}
+
+.pixel-badge--mint {
+    background: theme('colors.mint.500');
+    color: theme('colors.ink.50');
+    box-shadow: inset 0 0 0 2px theme('colors.mint.100');
+}
+
+.pixel-badge--sky {
+    background: theme('colors.sky.400');
+    color: theme('colors.ink.50');
+    box-shadow: inset 0 0 0 2px theme('colors.sky.100');
+}
+
+.pixel-badge--crimson {
+    background: theme('colors.crimson.400');
+    color: theme('colors.ink.50');
+    box-shadow: inset 0 0 0 2px theme('colors.crimson.100');
+}
+
+.pixel-badge--panel {
+    background: theme('colors.panel.400');
+    color: theme('colors.ink.50');
+    box-shadow: inset 0 0 0 2px theme('colors.panel.100');
+}
+
+// Pixel input
+.pixel-input {
+    display: block;
+    width: 100%;
+    padding: 12px 14px;
+    background: theme('colors.night.800');
+    color: theme('colors.ink.100');
+    font-family: 'DotGothic16', 'Noto Sans TC', system-ui, monospace;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    box-shadow:
+        inset 0 0 0 2px theme('colors.ink.100'),
+        inset 4px 4px 0 0 theme('colors.night.900');
+    outline: none;
+}
+
+.pixel-input::placeholder {
+    color: theme('colors.ink.300');
+    opacity: 0.7;
+}
+
+.pixel-input:focus {
+    box-shadow:
+        inset 0 0 0 2px theme('colors.gold.300'),
+        inset 4px 4px 0 0 theme('colors.night.900');
+}
+
+// 滾動條
+::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+::-webkit-scrollbar-track {
+    background: theme('colors.night.900');
+}
+::-webkit-scrollbar-thumb {
+    background: theme('colors.panel.500');
+    box-shadow: inset 0 0 0 2px theme('colors.ink.100');
+}
+::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.magenta.500');
+}
+
+// 字體
+.font-pixel-en {
+    font-family: 'Press Start 2P', 'DotGothic16', 'Noto Sans TC', system-ui, monospace;
+    letter-spacing: 1px;
+}
+
+.font-pixel-jp {
+    font-family: 'DotGothic16', 'Noto Sans TC', system-ui, sans-serif;
+}
+
+// 整體 RPG 容器
+.rpg-shell {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+@media (min-width: 768px) {
+    .rpg-shell {
+        padding: 32px 24px;
+    }
+}
