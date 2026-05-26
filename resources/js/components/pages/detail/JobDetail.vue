@@ -160,7 +160,7 @@ import CategoryBadge from 'components/common/CategoryBadge.vue';
 import StarMeter from 'components/common/StarMeter.vue';
 import InfoChip from 'components/pages/detail/InfoChip.vue';
 import {getJobBySlug, getAdjacentJobs} from 'data/jobs';
-import {useSiteHead, SITE} from 'libs/seo';
+import {useSiteHead} from 'libs/seo';
 
 export default {
     name: 'JobDetail',
@@ -210,7 +210,9 @@ export default {
             return this.adjacent.next ?? this.job;
         },
         shareUrl() {
-            return `${SITE.URL}/job/${this.slug}`;
+            // 一律從當前網域算分享連結，避免 SITE_URL 過時或環境不一致
+            const origin = typeof window !== 'undefined' ? window.location.origin : '';
+            return `${origin}/job/${this.slug}`;
         },
         shareLabel() {
             return {
