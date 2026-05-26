@@ -648,6 +648,24 @@ export const jobs = [
         typicalClient: '癌末病人、預知時日不多的長者與其家人',
         firstSeen: '2003 北美興起，台灣 2020 後開始有培訓',
     },
+    {
+        id: 36,
+        slug: 'weather-prayer',
+        name: '天氣祈禱師',
+        nameEn: 'SKYCALLER',
+        category: 'mystic',
+        emoji: '🌦',
+        aura: 5,
+        absurdity: 4,
+        realness: 1,
+        skills: ['雲層交涉', '颱風路徑商量', '對著天空念咒語不害羞'],
+        weakness: '客戶開氣象局 app 對照比較準',
+        tagline: '明天的婚禮要晴天、後天的考試要颱風假，我都可以接。',
+        desc: '源頭是古代「求雨儀式」（中國商朝就有，世界各部落族群也都有）。現代版進化成接案型服務：婚禮想要晴天、登山想要無風、戶外演唱會想要不下雨、學生想要颱風假、農夫想要下雨、阿婆想要不下雨好曬棉被 — 客製化程度比氣象局強，準確度就⋯見仁見智。\n\n台灣有零星宮廟、命理老師提供相關服務（多以「祈福」名義），日本也有「晴れ女 / 雨男」職業出租。屬於「結果無法量化、但你心情變好」的服務 — 真的放晴你會感謝他，下雨你會說「至少有人陪我祈禱」。',
+        price: 'NT$ 600–3,000 / 次；颱風假版本特別貴',
+        typicalClient: '婚禮新人、戶外活動策劃、想放假的高中生',
+        firstSeen: '商朝就有；颱風假版本 PTT 2005 後流行',
+    },
 ];
 
 export const jobsBySlug = Object.fromEntries(jobs.map((j) => [j.slug, j]));
