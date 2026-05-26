@@ -14,30 +14,20 @@
                 <div class="og-emoji-row">
                     <span v-for="(e, i) in emojis" :key="i" class="og-emoji">{{ e }}</span>
                 </div>
-                <div class="og-count">
-                    <span class="og-count-num">{{ totalJobs }}</span>
-                    <span class="og-count-text">名挑戰者收錄中</span>
-                </div>
+                <div class="og-stamp">持續收錄中⋯</div>
             </div>
         </div>
-        <div class="og-footer">▶ SSJ.COM · A PIXEL DEX OF MODERN ODD JOBS</div>
+        <div class="og-footer">▶ A PIXEL DEX OF MODERN ODD JOBS</div>
     </div>
 </template>
 
 <script>
-import {jobs} from 'data/jobs';
-
 export default {
     name: 'OgHome',
     data() {
         return {
             emojis: ['🐶', '🌿', '🃏', '🧭', '🎵', '💎', '🌸', '✨', '💕', '🛋', '⏳', '📦'],
         };
-    },
-    computed: {
-        totalJobs() {
-            return jobs.length;
-        },
     },
 };
 </script>
@@ -142,24 +132,15 @@ export default {
     line-height: 1;
 }
 
-.og-count {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 12px;
-    padding: 8px 24px;
+.og-stamp {
+    display: inline-block;
+    padding: 10px 28px;
     background: #d45b3b;
     box-shadow: inset 0 0 0 3px #fbf3d8;
     color: #fffdf2;
-}
-.og-count-num {
-    font-family: 'Press Start 2P', 'DotGothic16', monospace;
-    font-size: 32px;
-    letter-spacing: 2px;
-}
-.og-count-text {
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 }
 
 .og-footer {
